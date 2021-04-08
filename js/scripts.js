@@ -24,7 +24,7 @@ let pokemonListe = [
         niveau_evolution: 16,
         beschreibung: 'It is said to live 10,000 years. Its furry tail is popular as a symbol of longevity.',
         schwach_gegen: ['grass', 'electric']
-    }
+    },
     {
         name: 'Pikachu',
         typ: 'electric',
