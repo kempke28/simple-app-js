@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+    background-color: lightblue;
+    width: 100vw;
+    height: 120px;
+}
+
+.header-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.pokedex-section {
+    width: 100vw;
+    height: auto;
+    margin: 30px;
+}
+.searchbar-container input {
+    height: 35px;
+    width: 300px;
+    border-radius: 15px;
+    background: none;
+    padding: 10px;
+}
