@@ -1,5 +1,6 @@
 alert('Gooo Pikachu!!');
 
+
 let pokemonListe = [   //array and objects identify in the list
     {
         name: 'Bulbasaur',
@@ -57,12 +58,36 @@ let pokemonListe = [   //array and objects identify in the list
     }
 ];
 
-//this loops a list of the pokemon listed
+/*
+//declare result to hold pokemon value
 
-for (let elem=0; elem < pokemonListe.length; elem++){    //loop and element for the loop
-  if(pokemonListe[elem].height > 1) {                   // Considitional 1 in height element
-    document.write(pokemonListe[elem].name + ": " + "height: " + pokemonListe[elem].height + " " + "wow! its big" + "<br>")                                    // print conditional elements of the pokemon list
-  }else {
-      document.write(pokemonListe[elem].name + ": " + "height: " + pokemonListe[elem].height + "<br>")
-  }                                                       //print the elements that have not a conditional.
+for (let elem=0; elem < pokemonListe.length; elem++){  
+    let result = pokemonListe[elem].name + ": " + "height: " + pokemonListe[elem].height;
+
+//check if height is greater than 1, conditional;
+
+    if (pokemonListe[elem].height > 1) {
+    result = result + " Wow, that's big!"
+    } else {
+    result = result
+    }
+    document.write("<div>" + result +  "</div>")
 }
+*/
+
+//Foreach loop with conditional
+
+pokemonListe.forEach(function(pokemonListe) {
+    let result = 'name: ' + pokemonListe.name + '<br>' +'typ: ' + pokemonListe.typ + '<br>' + 'height: ' + pokemonListe.height + '<br>' + 'evolution: ' + pokemonListe.evolution + '<br>' + 'niveau evolution: ' + pokemonListe.niveau_evolution + '<br>' + 'beschreibung: ' + pokemonListe.beschreibung + '<br>' + 'schwach gegen' + pokemonListe.schwach_gegen + '<br>' + '' + '<br>';
+    // declare conditional
+    if (pokemonListe.height > 1) {
+        result = 'name: ' + pokemonListe.name + '<br>' +'typ: ' + pokemonListe.typ + '<br>' + 'height: ' + pokemonListe.height + ' Wow, its big!' + '<br>' + 'evolution: ' + pokemonListe.evolution + '<br>' + 'niveau evolution: ' + pokemonListe.niveau_evolution + '<br>' + 'beschreibung: ' + pokemonListe.beschreibung + '<br>' + 'schwach gegen' + pokemonListe.schwach_gegen + '<br>' + '' + '<br>';
+    } else {
+        result = result
+    }
+   
+    document.write( "<div>" + result + "</div>")
+    console.log(result)
+});
+    
+
