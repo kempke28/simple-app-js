@@ -71,15 +71,17 @@ let pokemonRepository = (function(){
         };
  })();
 
-pokemonRepository.getAll().foreach(function(pokemonRepository)) {
-    let result = pokemonRepository.getAll();
-    if (pokemonRepository.height > 1) {     
-        result = pokemonRepository.getAll + ({pokemonRepository.height + ' wow, its big'})
-    }  else if {
-        result =  result
-    }
-    console.log(result)
 
+
+ pokemonRepository.getAll().forEach(function(pokemon) {
+    let result = 'name: ' + pokemon.name + '<br>' +'typ: ' + pokemon.typ + '<br>' + 'height: ' + pokemon.height + '<br>' + 'evolution: ' + pokemon.evolution + '<br>' + 'niveau evolution: ' + pokemon.niveau_evolution + '<br>' + 'beschreibung: ' + pokemon.beschreibung + '<br>' + 'schwach gegen' + pokemon.schwach_gegen + '<br>' + '' + '<br>';
+    if (pokemon.height > 1)
+    {     
+        result = result = 'name: ' + pokemon.name + '<br>' +'typ: ' + pokemon.typ + '<br>' + 'height: ' + pokemon.height + ' Wow, its big!' + '<br>' + 'evolution: ' + pokemon.evolution + '<br>' + 'niveau evolution: ' + pokemon.niveau_evolution + '<br>' + 'beschreibung: ' + pokemon.beschreibung + '<br>' + 'schwach gegen' + pokemon.schwach_gegen + '<br>' + '' + '<br>';
+    }  
+    //console.log(result);
+    document.write('<div>' + result + '</div>');
+});
 
 console.log (pokemonRepository.getAll() ); //this call the complete array of pokemon
 pokemonRepository.add ({name: 'mew '}); //adds mew to the list, just the name mew
