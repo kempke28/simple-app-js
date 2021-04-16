@@ -83,7 +83,7 @@ let pokemonRepository = (function() {
             console.log(pokemon);
         }
 
-        // function pokemonclick (button, pokemon) {    how do I put 2 parameters????
+        // function pokemonclick (button, pokemon) {   .... hhuuuuu ??
 
         return {
             getAll: getAll,
