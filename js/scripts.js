@@ -1,6 +1,6 @@
 alert('Gooo Pikachu!!');
 
-let pokemonRepository = (function(){
+let pokemonRepository = (function() {
     let pokemonListe = [   //array and objects identify in the list
         {
             name: 'Bulbasaur',
@@ -57,36 +57,60 @@ let pokemonRepository = (function(){
             schwach_gegen: ['rock', 'electric', 'ice', 'ghost', 'dargon']
         }
     ];
-
+        //grabs the array into a repository
         function getAll() {
             return pokemonListe;
         }
+        //adds new pokemon to the list
         function add(pokemon) {
             pokemonListe.push(pokemon);
         }
+        //creates the buttons for the pokemon list
+        function addListItem(pokemon) {
+            let pokemonList = document.querySelector('.pokemon-list');  
+            let listpokemon = document.createElement('li');
+            let button = document.createElement('button');
+            button.innerText = pokemon.name;                            //from the variable button, put some text
+            button.classList.add('button-class');                      //generate a new button for each pokemon
+            listpokemon.appendChild(button);
+            pokemonList.appendChild(listpokemon);
+            button.addEventListener('click', function () {              //when clicked prints on console the pokemon
+                showDetails(pokemon)
+            });
+        }
         
+        function showDetails (pokemon) {
+            console.log(pokemon);
+        }
+
+        // function pokemonclick (button, pokemon) {    how do I put 2 parameters????
+
         return {
             getAll: getAll,
-            add: add
+            add: add,
+            addListItem: addListItem,
+            showDetails: showDetails
         };
  })();
 
 
+ console.log (pokemonRepository.getAll() ); //this call the complete array of pokemon
+ pokemonRepository.add ({name: 'mew ', height: 0.4, types: ['pyschic']}); //adds mew to the list, just the name mew
+ console.log (pokemonRepository.getAll ()); //reprints everything with mew at the bottom of the list
 
- pokemonRepository.getAll().forEach(function(pokemon) {
-    let result = 'name: ' + pokemon.name + '<br>' +'typ: ' + pokemon.typ + '<br>' + 'height: ' + pokemon.height + '<br>' + 'evolution: ' + pokemon.evolution + '<br>' + 'niveau evolution: ' + pokemon.niveau_evolution + '<br>' + 'beschreibung: ' + pokemon.beschreibung + '<br>' + 'schwach gegen' + pokemon.schwach_gegen + '<br>' + '' + '<br>';
-    if (pokemon.height > 1)
-    {     
-        result = result = 'name: ' + pokemon.name + '<br>' +'typ: ' + pokemon.typ + '<br>' + 'height: ' + pokemon.height + ' Wow, its big!' + '<br>' + 'evolution: ' + pokemon.evolution + '<br>' + 'niveau evolution: ' + pokemon.niveau_evolution + '<br>' + 'beschreibung: ' + pokemon.beschreibung + '<br>' + 'schwach gegen' + pokemon.schwach_gegen + '<br>' + '' + '<br>';
-    }  
-    //console.log(result);
-    document.write('<div>' + result + '</div>');
+
+pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
 });
 
-console.log (pokemonRepository.getAll() ); //this call the complete array of pokemon
-pokemonRepository.add ({name: 'mew '}); //adds mew to the list, just the name mew
-console.log (pokemonRepository.getAll ()); //reprints everything with mew at the bottom of the list
-document.write(pokemonRepository.getAll());
+
+
+
+
+
+
+
+
 
 
 
@@ -96,6 +120,40 @@ document.write(pokemonRepository.getAll());
 
 
 /*
+
+ function renderhtml(pokemon) {
+    const {name, typ, hieght, evolution, niveau_evolution, beschreibung, schwach_gegen} = pokemon
+    return 
+        "<div class ="pokemon">
+            <p>name: ${name}</p>
+            <p>typ: ${typ}</p>
+            <p>hieght: ${height}</p>
+            <p>evolution: ${evolution}</p>
+            <p>niveau evolution: ${niveau_evolution}</p>
+            <p>beschreibung: ${beschreibung}</p>
+            <p>schwach gegen: ${schwach_gegen}</p>
+        </div>"
+    
+}
+
+ pokemonRepository.getAll().forEach(function(pokemon) {
+  let result = renderhtml(pokemon)
+  Document.write(result);
+ });  
+    
+  */  
+    
+/*
+    let result = 'name: ' + pokemon.name + '<br>' +'typ: ' + pokemon.typ + '<br>' + 'height: ' + pokemon.height + '<br>' + 'evolution: ' + pokemon.evolution + '<br>' + 'niveau evolution: ' + pokemon.niveau_evolution + '<br>' + 'beschreibung: ' + pokemon.beschreibung + '<br>' + 'schwach gegen' + pokemon.schwach_gegen + '<br>' + '' + '<br>';
+    if (pokemon.height > 1)  {     
+        result = result = 'name: ' + pokemon.name + '<br>' +'typ: ' + pokemon.typ + '<br>' + 'height: ' + pokemon.height + ' Wow, its big!' + '<br>' + 'evolution: ' + pokemon.evolution + '<br>' + 'niveau evolution: ' + pokemon.niveau_evolution + '<br>' + 'beschreibung: ' + pokemon.beschreibung + '<br>' + 'schwach gegen' + pokemon.schwach_gegen + '<br>' + '' + '<br>';
+    }  
+    //console.log(result);
+    document.write('<div>' + result + '</div>');
+});
+
+
+
 //declare result to hold pokemon value
 
 for (let elem=0; elem < pokemonListe.length; elem++){  

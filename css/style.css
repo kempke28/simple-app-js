@@ -8,9 +8,9 @@ html {
 }
 
 header {
-    background-color: lightblue;
+    background-color: rgb(106, 218, 255);
     width: 100vw;
-    height: 120px;
+    height: 200px;
 }
 
 .header-container {
@@ -32,4 +32,28 @@ header {
     border-radius: 15px;
     background: none;
     padding: 10px;
+}
+
+.pokemon-logo {
+    max-width: 300px;
+    max-height: 200px;
+}
+.pokemon-title {
+    margin: 20px 30px 50px 30px;
+}
+
+.pokemon-List {
+    display: flex;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: space-between;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.button-class {
+    height: 40px;
+    width: 100px;
+    border-radius: 20px;
+    margin-bottom: 10px;
 }
