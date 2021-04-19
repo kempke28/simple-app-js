@@ -1,62 +1,10 @@
 alert('Gooo Pikachu!!');
 
 let pokemonRepository = (function() {
-    let pokemonListe = [   //array and objects identify in the list
-        {
-            name: 'Bulbasaur',
-            typ: ['grass', 'posion'],
-            height: .7,
-            evolution: 'ivysaur',
-            niveau_evolution: 16,
-            beschreibung: 'For some time after its birth, it grows by gaining nourishment from the seed on its back',
-            schwach_gegen: ['ground', 'psychic', 'flying', 'fire', 'ice']
-        }, 
-        {
-            name: 'Charmander',
-            typ: 'fire',
-            height: .6,
-            evolution: 'Charmeleon',
-            niveau_evolution: 16,
-            beschreibung: 'The fire on the tip of its tail is a measure of its life. If healthy, its tail burns intensely.',
-            schwach_gegen: ['ground', 'rock', 'water']
-        },
-        {
-            name: 'Squirtle',
-            typ: 'water',
-            height: .5,
-            evolution: 'Wartortle',
-            niveau_evolution: 16,
-            beschreibung: 'It is said to live 10,000 years. Its furry tail is popular as a symbol of longevity.',
-            schwach_gegen: ['grass', 'electric']
-        },
-        {
-            name: 'Pikachu',
-            typ: 'electric',
-            height: .4,
-            evolution: 'Raichu',
-            niveau_evolution: 'using a stone',
-            beschreibung: 'It occasionally uses an electric shock to recharge a fellow Pikachu that is in a weakened state.',
-            schwach_gegen: 'ground'
-        },
-        {
-            name: 'Ho-Oh',
-            typ: ['electric', 'flying'],
-            height: 3.8,
-            evolution: 'none',
-            niveau_evolution: 'none',
-            beschreibung: 'It occasIts feathers are in seven colors. It is said that anyone seeing it is promised eternal happiness.ionally uses an electric shock to recharge a fellow Pikachu that is in a weakened state.',
-            schwach_gegen: ['ground', 'rock', 'electric', 'water']
-        },
-        {
-            name: 'Lugia',
-            typ: ['psychic', 'flying'],
-            height: 5.2, 
-            evolution: 'none',
-            niveau_evolution: 'none',
-            beschreibung: 'It sleeps in a deep-sea trench. If it flaps its wings, it is said to cause a 40-day storm.',
-            schwach_gegen: ['rock', 'electric', 'ice', 'ghost', 'dargon']
-        }
-    ];
+    let pokemonListe = [ ];  
+    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=500'; //URL API with all pokemons list
+
+
         //grabs the array into a repository
         function getAll() {
             return pokemonListe;
@@ -67,20 +15,55 @@ let pokemonRepository = (function() {
         }
         //creates the buttons for the pokemon list
         function addListItem(pokemon) {
-            let pokemonList = document.querySelector('.pokemon-list');  
-            let listpokemon = document.createElement('li');
-            let button = document.createElement('button');
+            let pokemonList = document.querySelector('.pokemon-list');  //select the class inside the html
+            let listpokemon = document.createElement('li');             //create an element inside the class that is inside the <div>
+            let button = document.createElement('button');              // creates the button that with display "li"
             button.innerText = pokemon.name;                            //from the variable button, put some text
             button.classList.add('button-class');                      //generate a new button for each pokemon
             listpokemon.appendChild(button);
             pokemonList.appendChild(listpokemon);
-            button.addEventListener('click', function () {              //when clicked prints on console the pokemon
+            button.addEventListener('click', function (event) {              //when clicked prints on console the pokemon
                 showDetails(pokemon)
             });
         }
+
+        function loadList () {                                  //funcion to call a list only name
+            return fetch(apiURL).then(function (response) {    //return the API list from an espcific url with a promess
+                return response.json();                        //return the promess if it there is something to fetch. the ".json" is necessary beacuse the list is in json type
+            }).then(function(json) {                           // to make another promess with the API json
+                json.results.forEach(function(item) {          //API list json brings back results and loop them with forEach funcion
+                    let pokemon = {                            //create a new variable for the object in API: pokemon
+                        name: item.name,                       //indicates elements of object will bring
+                        detailsUrl: item.url
+                    };
+                    add(pokemon);                              //add pokemon by looping next pokemon on list
+                    console.log(pokemon);
+                });
+            }).catch(function (e) {                            //just to catch errors, if so.
+                console.error(e);
+            })
+        }
+
+        function loadDetails (item) {                           //function to select which details I want
+            let url = item.detailsUrl;                          //add variable containing part of the other varibale of details
+            return  fetch(url).then(function (response) {       //fetch url making a promise
+                return response.json();
+            }).then(function (details) {
+                item.imageUrl = details.sprites.other['official-artwork'].front_default;
+                item.id = details.id;
+                item.height  = details.height;
+                item.types = details.types.name;      
+            }).catch(function (e) {
+                console.error(e);
+            });
+        }
+
+        //promess function and fetch de pokemon API 
         
-        function showDetails (pokemon) {
-            console.log(pokemon);
+        function showDetails (item) {
+            pokemonRepository.loadDetails(item).then(function () {
+                console.log(item)
+            });
         }
 
         // function pokemonclick (button, pokemon) {   .... hhuuuuu ??
@@ -89,19 +72,19 @@ let pokemonRepository = (function() {
             getAll: getAll,
             add: add,
             addListItem: addListItem,
+            loadList: loadList,
+            loadDetails: loadDetails,
             showDetails: showDetails
         };
  })();
 
-
- console.log (pokemonRepository.getAll() ); //this call the complete array of pokemon
- pokemonRepository.add ({name: 'mew ', height: 0.4, types: ['pyschic']}); //adds mew to the list, just the name mew
+pokemonRepository.loadList().then(function() {
+    pokemonRepository.getAll().forEach(function (pokemon) {
+        pokemonRepository.addListItem(pokemon);
+    })
+})
+ 
  console.log (pokemonRepository.getAll ()); //reprints everything with mew at the bottom of the list
-
-
-pokemonRepository.getAll().forEach(function (pokemon) {
-    pokemonRepository.addListItem(pokemon);
-});
 
 
 
