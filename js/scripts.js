@@ -3,6 +3,7 @@ alert('Gooo Pikachu!!');
 let pokemonRepository = (function() {
     let pokemonListe = [ ];  
     let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=500'; //URL API with all pokemons list
+    let modalContainer = document.querySelector('#modal-container');     /// Why define here????
 
 
         //grabs the array into a repository
@@ -13,6 +14,7 @@ let pokemonRepository = (function() {
         function add(pokemon) {
             pokemonListe.push(pokemon);
         }
+
         //creates the buttons for the pokemon list
         function addListItem(pokemon) {
             let pokemonList = document.querySelector('.pokemon-list');  //select the class inside the html
@@ -22,8 +24,9 @@ let pokemonRepository = (function() {
             button.classList.add('button-class');                      //generate a new button for each pokemon
             listpokemon.appendChild(button);
             pokemonList.appendChild(listpokemon);
-            button.addEventListener('click', function (event) {              //when clicked prints on console the pokemon
-                showDetails(pokemon)
+            button.addEventListener('click', function (event) {              //when clicked prints on console the pokemon       
+                showDetails(pokemon);
+                pokemonRepository.loadDetails(pokemon).then(() => showModal(pokemon));              
             });
         }
 
@@ -49,10 +52,10 @@ let pokemonRepository = (function() {
             return  fetch(url).then(function (response) {       //fetch url making a promise
                 return response.json();
             }).then(function (details) {
-                item.imageUrl = details.sprites.other['official-artwork'].front_default;
+                item.imageUrl = details.sprites.other["official-artwork"].front_default;
                 item.id = details.id;
                 item.height  = details.height;
-                item.types = details.types.name;      
+                item.types = details.types;                    
             }).catch(function (e) {
                 console.error(e);
             });
@@ -66,7 +69,27 @@ let pokemonRepository = (function() {
             });
         }
 
-        // function pokemonclick (button, pokemon) {   .... hhuuuuu ??
+        /*.addEventListener('click', () => {
+            showModal('Modal title', 'This is the modal content!');
+          });*/
+        
+        function hideModal() {
+            modalContainer.classList.remove('is-visible');
+          }
+          
+          window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+              hideModal();  
+            }
+          });
+          
+          modalContainer.addEventListener('click', (e) => {
+            let target = e.target;
+            if (target === modalContainer) {
+              hideModal();
+            }
+          });
+       
 
         return {
             getAll: getAll,
