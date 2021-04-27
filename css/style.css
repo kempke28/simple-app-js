@@ -7,12 +7,6 @@ html {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-header {
-    background-color: rgb(106, 218, 255);
-    width: 100vw;
-    height: 200px;
-}
-
 .header-container {
     height: 100%;
     display: flex;
@@ -26,13 +20,6 @@ header {
     height: auto;
     margin: 30px;
 }
-.searchbar-container input {
-    height: 35px;
-    width: 300px;
-    border-radius: 15px;
-    background: none;
-    padding: 10px;
-}
 
 .pokemon-logo {
     max-width: 300px;
@@ -42,8 +29,10 @@ header {
     margin: 20px 30px 50px 30px;
 }
 
-.pokemon-List {
+ 
+.list-group {
     display: flex;
+    flex-direction: row;
     max-width: 800px;
     margin: 0 auto;
     justify-content: space-between;
@@ -51,18 +40,17 @@ header {
     flex-wrap: wrap;
 }
 
-.button-class {
+.pokemon-button {
     height: 40px;
-    width: 100px;
+    width: 120px;
     border-radius: 20px;
     margin: 10px;
     background-color: #258ae8;
     color: white
 }
 
-#modal-container {
-    display: none;
-}
+
+/*
 
 #modal-container.is-visible {
     position: fixed;
@@ -80,7 +68,7 @@ header {
     /* to allow scrolling if the screen is not high enough*/
     overflow: auto; 
     
-    /* this is used to center the modal */
+    /* this is used to center the modal 
     display: grid;
     text-align: center;
 }
@@ -116,3 +104,4 @@ header {
 .modal img {
     margin: 0 auto;
 }
+*/
