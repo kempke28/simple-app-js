@@ -1,4 +1,4 @@
-alert('Gooo Pikachu!!');
+
 
 let pokemonRepository = (function() {
     let pokemonListe = [ ];  
@@ -28,8 +28,8 @@ let pokemonRepository = (function() {
             button.setAttribute('data-toggle', 'modal')                  
             listpokemon.appendChild(button);
             pokemonList.appendChild(listpokemon);
-            button.addEventListener('click', function (event) {              //when clicked prints on console the pokemon       
-                showModal(pokemon);              
+            button.addEventListener('click', function (event) {             //when clicked prints on console the pokemon       
+                showDetails(pokemon);              
             });
         }
 
@@ -69,7 +69,7 @@ let pokemonRepository = (function() {
         
         function showDetails (item) {
             pokemonRepository.loadDetails(item).then(function () {
-                console.log(item)
+                showModal(item)
             });
         }
         
@@ -77,17 +77,20 @@ let pokemonRepository = (function() {
                         
             let modalBody = $( '.modal-body' );
             let modalTitle = $( '.modal-Title' );
-            let modalHeader = $( '.modal-header' );
-            
+                    
             modalTitle.empty();
             modalBody.empty();
+            
 
-            let namePokemon = $( '<h1>' + $(pokemon.name) + '</h1>');                          //creating pokemon name
-            let imagePokemon = $( '<img class="modal-img" style="width:50%">' );
-            imagePokemon.attr('src', $(pokemon.imageUrl));
-            let idPokemon = $( '<p>' + "ID: " + $(pokemon.id) + '</p>' );
-            let heightPokemon = $( '<p>' + "Pokemon height: " + $(pokemon.height) + '</p>' );
-            let typePokemon = $( '<p>' + "type: " + $(pokemon.types) + '</p>' );
+            let namePokemon = $( '<h1>' + pokemon.name + '</h1>');                          //creating pokemon name
+            let idPokemon = $( '<p>' + "ID: " + pokemon.id + '</p>' );
+            let imagePokemon = $( '<img class="modal-img" style="width:50%" />' );
+            imagePokemon.attr('src', pokemon.imageUrl);
+            let heightPokemon = $( '<p>' + "Pokemon height: " + pokemon.height + '</p>' );
+            let typePokemon = $( '<p>' +  pokemon.types.forEach(pokemon => pokemon.type.name) + '</p>');
+            
+        
+            
 
             modalTitle.append(namePokemon);
             modalBody.append(imagePokemon);
@@ -116,13 +119,6 @@ pokemonRepository.loadList().then(function() {
 })
  
  console.log (pokemonRepository.getAll ()); //reprints everything with mew at the bottom of the list
-
-
-
-
-
-
-
 
 
 
