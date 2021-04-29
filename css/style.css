@@ -48,8 +48,15 @@ html {
     background-color: #258ae8;
     color: white
 }
-
-
+.modal-content {
+    border-radius: 20px;
+}
+.modal-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 /*
 
 #modal-container.is-visible {
@@ -62,10 +69,10 @@ html {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     
-    /* to show it above other content */
+    /* to show it above other content 
     z-index: 999; 
     
-    /* to allow scrolling if the screen is not high enough*/
+    /* to allow scrolling if the screen is not high enough
     overflow: auto; 
     
     /* this is used to center the modal 

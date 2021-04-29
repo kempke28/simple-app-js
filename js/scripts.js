@@ -87,11 +87,10 @@ let pokemonRepository = (function() {
             let imagePokemon = $( '<img class="modal-img" style="width:50%" />' );
             imagePokemon.attr('src', pokemon.imageUrl);
             let heightPokemon = $( '<p>' + "Pokemon height: " + pokemon.height + '</p>' );
-            let typePokemon = $( '<p>' +  pokemon.types.forEach(pokemon => pokemon.type.name) + '</p>');
-            
-        
-            
-
+            let typePokemon = "<p>"; 
+            pokemon.types.forEach(pokemon => typePokemon += pokemon.type.name + " ");
+            typePokemon += '</p>';
+           
             modalTitle.append(namePokemon);
             modalBody.append(imagePokemon);
             modalBody.append(idPokemon);
@@ -119,6 +118,7 @@ pokemonRepository.loadList().then(function() {
 })
  
  console.log (pokemonRepository.getAll ()); //reprints everything with mew at the bottom of the list
+
 
 
 
