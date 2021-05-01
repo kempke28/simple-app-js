@@ -1,5 +1,4 @@
 
-
 let pokemonRepository = (function() {
     let pokemonListe = [ ];  
     let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=500'; //URL API with all pokemons list
@@ -13,6 +12,11 @@ let pokemonRepository = (function() {
         //adds new pokemon to the list
         function add(pokemon) {
             pokemonListe.push(pokemon);
+        }
+
+        function clearListItem(){
+            let pokemonList = document.querySelector( '.list-group' ); 
+            pokemonList.innerHTML = "";
         }
 
         //creates the buttons for the pokemon list
@@ -98,7 +102,8 @@ let pokemonRepository = (function() {
             modalBody.append(typePokemon);
 
         }
-           
+
+                
         return {
             getAll: getAll,
             add: add,
@@ -107,17 +112,44 @@ let pokemonRepository = (function() {
             loadDetails: loadDetails,
             showDetails: showDetails,
             showModal: showModal,
+            clearListItem: clearListItem
             //hideModal: hideModal
         };
+
+        
  })();
+
+           /* let searchinpokemon = filterpokemon.target.value.tolowercase();
+            console.log(searchinpokemon)
+
+            let filteredpokemon = pokemonListe.filter(pokemon) => {
+                return (
+                    pokemon.name.tolowercase().includes(searchinpokemon);
+                );
+            } */
+        
+
 
 pokemonRepository.loadList().then(function() {
     pokemonRepository.getAll().forEach(function (pokemon) {
         pokemonRepository.addListItem(pokemon);
-    })
-})
+    });
+});
+
+let pokensearch = document.getElementById( 'pokemonsearch' );
+pokensearch.addEventListener( 'keyup', (filterpokemon) => {
+        let searchname = filterpokemon.target.value.toLowerCase();
+        let filteredpokemon = pokemonRepository.getAll().filter(poken => 
+            poken.name.toLowerCase().includes(searchname)
+        );
+        pokemonRepository.clearListItem();
+        filteredpokemon.forEach(function (pokemon) {
+            pokemonRepository.addListItem(pokemon);
+        });
+});
+
  
- console.log (pokemonRepository.getAll ()); //reprints everything with mew at the bottom of the list
+ //console.log (pokemonRepository.getAll ()); //reprints everything with mew at the bottom of the list
 
 
 
